@@ -1,0 +1,163 @@
+*{
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  list-style: none;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0px;
+  font-family: sans-serif;
+  color: white;
+  background-color: black;
+  text-align: left;
+}
+#notification {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 200px;
+  padding: 20px;
+  border-radius: 5px;
+  color: white;
+  background-color: black;
+  box-shadow: 0 4px 8px 0 rgba(145, 145, 145, 0.76);
+}
+.hidden {
+  display: none;
+}
+
+.sidebar{
+  position: fixed;
+  left: 0;
+  width: 200px;
+  height: 100%;
+  background: #494949e3;
+}
+
+.title{
+  font-size: 20px;
+  color: white;
+  line-height: 60px;
+  background-color: #cfa418;
+}
+
+.sidebar ul li a{
+  display: block;
+  color: white;
+  line-height: 60px;
+  padding-left: 49px;
+}
+
+.sidebar ul li a:hover{
+  border-left: 4px solid #cfa418;
+  transition: .5s;
+  background: #161737;
+  counter-reset: white;
+}
+
+.main{
+  margin-left: 260px;
+  padding-top: 38px;
+  padding-right: 38px;
+}
+
+.thumb{
+  width: 30%;
+  margin-right: 3%;
+}
+
+.subSection{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 50px;
+}
+
+.title-subSection{
+  font-weight: 400;
+}
+
+.excerpt{
+  margin-top: 30px;
+  text-align: justify;
+}
+
+.excerpt_two{
+  margin-top: 10px;
+  text-align: justify;
+}
+
+.title-subSection {
+  text-align: left;
+}
+
+
+/* ================== Toggle switch ================== */
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 22px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 15px;
+  width: 15px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+/* ==================          ================== */

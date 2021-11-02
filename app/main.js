@@ -1,17 +1,18 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const { autoUpdater } = require('electron-updater');
+const path = require( 'path' );
 
 let mainWindow;
 
 function createWindow () {
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1200,
+    height: 900,
     webPreferences: {
       nodeIntegration: true,
     },
   });
-  mainWindow.loadFile('index.html');
+  mainWindow.loadFile( path.resolve( __dirname,'render/html/index.html'));
   mainWindow.on('closed', function () {
     mainWindow = null;
   });

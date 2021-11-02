@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<head>
+  <title>Swood Pro Report Configurator</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <script type="text/javascript" src="../Resources Input/ReportSettings.js"></script>
+  <script type="text/javascript" src="../js/WriteSettings.js"></script>
+  <script type="text/javascript" src="../js/Tabulator.min.js"></script>
+  <script type="text/javascript" src="../js/TableDisplay.js"></script>
+  <!-- <link rel="s?tylesheet" type="text/css" media="print" href="css/tabulator.min.css"/> -->
+  <!-- <link href="SWOODReport.css" rel="stylesheet" type="text/css"/> -->
+  <link href="../css/tabulator_midnight.css" rel="stylesheet" type="text/css"/>
+  <link href="../css/styles.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+
+  <header class="sidebar">
+    <div class="title">
+        <center>Report Configurator</center>
+    </div>
+    <ul>
+        <li><a href="index.html"><i class="fas fa-main"></i>&nbsp; Main</a></li>
+        <!-- <li><a href=""><i class="fas fa-home"></i>&nbsp; Home</a></li> -->
+        <!-- <li><a href=""><i class="fas fa-frames"></i>&nbsp; Frames</a></li> -->
+        <li><a href="panels.html"><i class="fas fa-Panel"></i>&nbsp; Panels</a></li>
+        <!-- <li><a href=""><i class="fas fa-Stocks"></i>&nbsp; Stocks</a></li> -->
+        <!-- <li><a href=""><i class="fas fa-Programs"></i>&nbsp; Programs</a></li> -->
+        <!-- <li><a href=""><i class="fas fa-Summary"></i>&nbsp; Summary</a></li> -->
+        <!-- <li><a href=""><i class="fas fa-Printing"></i>&nbsp; Printing</a></li> -->
+    </ul>
+
+</header>
+<section class="main">
+    <h1 class="title-main">Swood Pro Report Configurator</h1>
+    <p style="font-weight: bold;" id="version"></p>
+    <br>  
+    
+    <h1 class="title-main">Swood Pro Report</h1>
+    <p style="font-weight: bold;" id="version">Version 2.05</p>
+    <br>  
+
+    <div>
+      <button id="add-row">Add Column</button>
+      <button id="del-row">Remove Selected Columns</button>
+      <button id="clear">Empty the table</button>
+      <button id="reset">Reset</button>
+      <button id="SaveSettings">SaveSettings</button>
+  </div>
+
+  <div id="example-table"></div>
+  
+  <script>
+      CreateTable()
+  </script>
+
+
+  </section>
+
+
+
+  <div id="notification" class="hidden">
+    <p id="message"></p>
+    <button id="close-button" onClick="closeNotification()">
+      Close
+    </button>
+    <button id="restart-button" onClick="restartApp()" class="hidden">
+      Restart
+    </button>
+  </div>
+
+
+
+  <script>
+    const { ipcRenderer } = require('electron');
+    const version = document.getElementById('version');
+    const notification = document.getElementById('notification');
+    const message = document.getElementById('message');
+    const restartButton = document.getElementById('restart-button');
+    
+    ipcRenderer.send('app_version');
+    ipcRenderer.on('app_version', (event, arg) => {
+      ipcRenderer.removeAllListeners('app_version');
+      version.innerText = 'Version ' + arg.version;
+    });
+
+    ipcRenderer.on('update_available', () => {
+      ipcRenderer.removeAllListeners('update_available');
+      message.innerText = 'A new update is available. Downloading now...';
+      notification.classList.remove('hidden');
+    });
+
+    ipcRenderer.on('update_downloaded', () => {
+      ipcRenderer.removeAllListeners('update_downloaded');
+      message.innerText = 'Update Downloaded. It will be installed on restart. Restart now?';
+      restartButton.classList.remove('hidden');
+      notification.classList.remove('hidden');
+    });
+
+    function closeNotification() {
+      notification.classList.add('hidden');
+    }
+    
+    function restartApp() {
+      ipcRenderer.send('restart_app');
+    }
+  </script>
+</body>
