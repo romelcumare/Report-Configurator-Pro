@@ -20,7 +20,11 @@
     "electron-builder": "^20.40.2"
   },
   "dependencies": {
-    "electron-updater": "^4.0.6"
+    "chokidar": "^3.5.2",
+    "drag-drop": "^7.2.0",
+    "electron-updater": "^4.0.6",
+    "fs-extra": "^10.0.0",
+    "open": "^8.4.0"
   },
   "win": {
     "icon": "build/icon.ico"

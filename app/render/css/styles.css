@@ -161,3 +161,7 @@ input:checked + .slider:before {
 }
 
 /* ==================          ================== */
+
+.app__uploader__icon-area__icon {
+  flex: 0 0 auto;
+  width: 40px; }

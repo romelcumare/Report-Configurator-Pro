@@ -33,7 +33,7 @@
 
 </header>
 <section class="main">
-    <h2 class="title-subSection">Panels Tab Columns</h2>
+    <h2 class="title-subSection">Stocks Tab Columns</h2>
     <hr>
     <br>  
 
@@ -46,32 +46,47 @@
     </div>
 
     <br>
-  <div id="example-table"></div>
-  
-  <script>
-      CreateTable(PanelColumns, "#example-table")
-  </script>
-
-  <br>
-  <h2 class="title-subSection">Sorting Order</h2>
-  <hr>
-  <br> 
-
-  <div>
-    <button id="add-row-sort">Add Column</button>
-    <button id="del-row-sort">Remove Selected Columns</button>
-    <button id="clear-sort">Empty the table</button>
-    <button id="reset-sort">Reset</button>
-    <button id="SaveSettings-sort">SaveSettings</button>
-  </div>
-
-  <br>
-
-  <div id="example-table2"></div>
+    <div id="example-table"></div>
     
-  <script>
-      CreateSortTable(SortByPanel, "#example-table2")
-  </script>
+    <script>
+        CreateTable(StockColumns, "#example-table")
+    </script>
+
+    <br>
+    <h2 class="title-subSection">Sorting Order</h2>
+    <hr>
+    <br> 
+
+    <div>
+      <button id="add-row-sort">Add Column</button>
+      <button id="del-row-sort">Remove Selected Columns</button>
+      <button id="clear-sort">Empty the table</button>
+      <button id="reset-sort">Reset</button>
+      <button id="SaveSettings-sort">SaveSettings</button>
+    </div>
+
+    <br>
+
+    <div id="example-table2"></div>
+      
+    <script>
+        CreateSortTable(SortByStock, "#example-table2")
+    </script>
+
+    <br>
+    <br>
+    <p>Group Stocks</p>
+    <label class="switch">
+      <input type="checkbox">
+      <span class="slider round"></span>
+    </label>
+    <br>
+    <br>
+    <p>Group Beam Saw</p>
+    <label class="switch">
+      <input type="checkbox">
+      <span class="slider round"></span>
+    </label>
   </section>
 
 

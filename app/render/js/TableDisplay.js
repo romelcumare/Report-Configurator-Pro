@@ -20,27 +20,28 @@ var tabledata = [
 
 
 
-function CreateTable(){
+function CreateTable(data, tableID){
 
     //create Tabulator on DOM element with id "example-table"
     var table = new Tabulator("#example-table", {
-        height: 500, // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
+        height: 300, // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
         // data: tabledata, //assign data to table
-        data: PanelColumns, //assign data to table
+        data: data, //assign data to table
         layout:"fitColumns", //fit columns to width of table (optional)
         movableRows:true,
         movableColumns: false,
         selectable:true, //make rows selectable
+        headerSort: false,
         columns:[ //Define Table Columns
             {rowHandle:true, formatter:"handle", headerSort:false, frozen:true, width:30, minWidth:30},
-            {title:"Property", field:"Property", width:150, hozAlign:"center", editor: true, validator:"string"},
-            {title:"Column Header", field:"Header", hozAlign:"center", editor: true},
-            {title:"PropertyType", field:"PropertyType", hozAlign:"center", editor:"select", editorParams:{values:{"SW Custom Property":"SW Custom Property", "Swood Material Property":"Swood Material Property", "Swood Property":"Swood Property"}}},
-            {title:"Type", field:"Type", hozAlign:"center", editor:"select", editorParams:{values:{"alphanum":"alphanum", "number":"number", "tickCross":"tickCross"}}},
-            {title:"Search", field:"Search", hozAlign:"center", formatter:"tickCross", editor: true},
-            {title:"Print", field:"Print", hozAlign:"center", formatter:"tickCross", editor: true},
-            {title:"Column Width", field:"Width", hozAlign:"center", editor: true},// validator: ["in:auto", "numeric"]},
-            {title:"HozAlign", field:"HozAlign", sorter:"date", hozAlign:"center", editor:"select", editorParams:{values:{"center":"Center", "left":"Left", "right":"Right"}}},
+            {title:"Property", field:"Property", width:150, headerHozAlign:"center", headerSort: false, hozAlign:"center", editor: true, validator:"string"},
+            {title:"Column Header", field:"Header", headerHozAlign:"center", headerSort: false, hozAlign:"center", editor: true},
+            {title:"PropertyType", field:"PropertyType", headerHozAlign:"center", headerSort: false, hozAlign:"center", editor:"select", editorParams:{values:{"SW Custom Property":"SW Custom Property", "Swood Material Property":"Swood Material Property", "Swood Property":"Swood Property"}}},
+            {title:"Type", field:"Type", hozAlign:"center", headerHozAlign:"center", headerSort: false, editor:"select", editorParams:{values:{"alphanum":"alphanum", "number":"number", "tickCross":"tickCross"}}},
+            {title:"Search", field:"Search", hozAlign:"center", headerHozAlign:"center", headerSort: false, formatter:"tickCross", editor: true},
+            {title:"Print", field:"Print", hozAlign:"center", headerHozAlign:"center", headerSort: false, formatter:"tickCross", editor: true},
+            {title:"Column Width", field:"Width", hozAlign:"center", headerHozAlign:"center", headerSort: false, editor: true},// validator: ["in:auto", "numeric"]},
+            {title:"HozAlign", field:"HozAlign", hozAlign:"center", headerHozAlign:"center", headerSort: false, editor:"select", editorParams:{values:{"center":"Center", "left":"Left", "right":"Right"}}},
         ],
 
 
@@ -89,7 +90,77 @@ function CreateTable(){
 
     //Reset table contents on "Reset the table" button click
     document.getElementById("reset").addEventListener("click", function(){
-        table.setData(tabledata);
+        table.setData(data);
+    });
+
+}
+
+function CreateSortTable(data, tableID){
+
+    //create Tabulator on DOM element with id "example-table"
+    var sortTable = new Tabulator(tableID, {
+        height: 200, // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
+        // data: tabledata, //assign data to table
+        data: data, //assign data to table
+        // layout:"fitColumns", //fit columns to width of table (optional)
+        layout:"fitDataTable", //fit columns to width of table (optional)
+        movableRows:true,
+        movableColumns: false,
+        selectable:true, //make rows selectable
+        headerSort: false,
+        columns:[ //Define Table Columns
+            {rowHandle:true, formatter:"handle", headerSort:false, frozen:true, width:30, minWidth:30},
+            {title:"Property", field:"Property", width:150, headerHozAlign:"center", headerSort: false, hozAlign:"center", editor: true, validator:"string"},
+            {title:"Type", field:"Type", width:150, hozAlign:"center", headerHozAlign:"center", headerSort: false, editor:"select", editorParams:{values:{"alphanum":"alphanum", "number":"number", "tickCross":"tickCross"}}},
+        ],
+
+
+        rowClick:function(e, row){ //trigger an alert message when the row is clicked
+            alert("Row " + row.getData().id + " Clicked!!!!");
+        },
+    
+    });
+
+    //listen for row move
+    sortTable.on("rowMoved", function(row){
+        console.log("Row: " + row.getData().name + " has been moved");
+    });
+    
+    
+    //Save Settings
+    document.getElementById("SaveSettings-sort").addEventListener("click", function(){
+        // Obtain new data from table
+        var NewTableData = sortTable.getData();     
+        
+        document.getElementById('SaveSettings').onclick = function() {
+            ipcRenderer.send('app:display-image', NewTableData);
+            console.log( '[message sent]', 'app:display-image' );
+        }
+    });
+
+    //Add row on "Add Row" button click
+    document.getElementById("add-row-sort").addEventListener("click", function(){
+        sortTable.addRow({});
+    });
+
+    //Delete row on "Delete Row" button click
+    document.getElementById("del-row-sort").addEventListener("click", function(){
+        var selectedRows = sortTable.getSelectedRows();
+        // table.deleteRow(1);
+        var selectedRows = sortTable.getSelectedRows();
+        for (let i in selectedRows){
+            selectedRows[i].delete()
+        }
+    });
+
+    //Clear table on "Empty the table" button click
+    document.getElementById("clear-sort").addEventListener("click", function(){
+        sortTable.clearData()
+    });
+
+    //Reset table contents on "Reset the table" button click
+    document.getElementById("reset-sort").addEventListener("click", function(){
+        sortTable.setData(data);
     });
 
 }

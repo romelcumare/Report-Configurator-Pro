@@ -20,6 +20,9 @@ ipcRenderer.on( 'app:delete-file', ( event, filename ) => {
 
 // add files drop listener
 dragDrop( '#uploader', ( files ) => {
+
+    console.log ("Files Dropped")
+
     const _files = files.map( file => {
         return {
             name: file.name,
@@ -27,12 +30,12 @@ dragDrop( '#uploader', ( files ) => {
         };
     } );
 
-    // send file(s) add event to the `main` process
-    ipcRenderer.invoke( 'app:on-file-add', _files ).then( () => {
-        ipcRenderer.invoke( 'app:get-files' ).then( ( files = [] ) => {
-            dom.displayFiles( files );
-        } );
-    } );
+    // // send file(s) add event to the `main` process
+    // ipcRenderer.invoke( 'app:on-file-add', _files ).then( () => {
+    //     ipcRenderer.invoke( 'app:get-files' ).then( ( files = [] ) => {
+    //         dom.displayFiles( files );
+    //     } );
+    // } );
 } );
 
 // open filesystem dialog

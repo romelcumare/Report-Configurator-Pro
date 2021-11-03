@@ -16,7 +16,7 @@
         <!-- <li><a href=""><i class="fas fa-home"></i>&nbsp; Home</a></li> -->
         <!-- <li><a href=""><i class="fas fa-frames"></i>&nbsp; Frames</a></li> -->
         <li><a href="panels.html"><i class="fas fa-Panel"></i>&nbsp; Panels</a></li>
-        <!-- <li><a href=""><i class="fas fa-Stocks"></i>&nbsp; Stocks</a></li> -->
+        <li><a href="stocks.html"><i class="fas fa-Stocks"></i>&nbsp; Stocks</a></li>
         <!-- <li><a href=""><i class="fas fa-Programs"></i>&nbsp; Programs</a></li> -->
         <!-- <li><a href=""><i class="fas fa-Summary"></i>&nbsp; Summary</a></li> -->
         <!-- <li><a href=""><i class="fas fa-Printing"></i>&nbsp; Printing</a></li> -->
@@ -33,6 +33,21 @@
     <br>  
 
     <subSection>
+
+        <!-- Drag and Drop Zone -->
+        <div id='uploader' class='app__uploader' style="background-color:gray;">
+            <div class='app__uploader__icon-area'>
+                <img src='../assets/upload.svg' class='app__uploader__icon-area__icon' />
+                <p class='app__uploader__icon-area__text'>Drag file(s) to add</p>
+            </div>
+            <div class='app__uploader__button-area'>
+                <button class='app__uploader__button-area__button' onclick='openDialog()'>Click To Add Files</button>
+            </div>
+        </div>
+
+        <br>
+        <br>
+
         <div>
             <h2 class="title-subSection">DAT folder location</h2>
             <hr>
@@ -65,20 +80,20 @@
         </div>
     </subSection>
     <subSection>
-        <!-- <img class="thumb" src="./fondo.jpg" alt=""> -->
-        <div>
-            <h2 class="title-subSection">Resources</h2>
-            <hr>
-            <br>
-            <p>Save resources</p>
-            <label class="switch">
-              <input type="checkbox">
-              <span class="slider round"></span>
-            </label>
-            
-            
-          </div>
-        </subSection>
+      <!-- <img class="thumb" src="./fondo.jpg" alt=""> -->
+      <div>
+        <h2 class="title-subSection">Resources</h2>
+        <hr>
+        <br>
+
+        <p>Save resources</p>
+        <label class="switch">
+          <input type="checkbox">
+          <span class="slider round"></span>
+        </label>
+  
+      </div>
+    </subSection>
         
 
 
@@ -131,5 +146,10 @@
     function restartApp() {
       ipcRenderer.send('restart_app');
     }
+  </script>
+
+    <!-- require render JavaScript -->
+  <script>
+      require( '../js/renderer.js' );
   </script>
 </body>
